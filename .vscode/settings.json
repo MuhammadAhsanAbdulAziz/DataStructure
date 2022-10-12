@@ -2,7 +2,8 @@
     "files.associations": {
         "xutility": "cpp",
         "iostream": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "xiosbase": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }

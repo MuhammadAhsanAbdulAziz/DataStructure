@@ -94,6 +94,43 @@ void Search(Node* root, int data)
     
 }
 
+Node* Delete(Node* root,int data)
+{
+    if(root == nullptr) return root;
+    else if(data < root->data) root->LC = Delete(root->LC,data);
+    else if(data > root->data) root->RC = Delete(root->RC,data);
+    else{
+     if(root->LC == nullptr && root->RC == nullptr)
+        {
+            delete root;
+            root = nullptr;
+        }
+        else if(root->LC == nullptr)
+        {
+            Node* temp = root;
+            root = root->RC;
+            delete temp;
+        }
+        else if(root->RC == nullptr)
+        {
+            Node* temp = root;
+            root = root->LC;
+            delete temp;
+        }
+        else {
+			Node *temp = new Node;
+            while(root->RC->LC !=nullptr)
+            {
+                root->RC = root->RC->LC; 
+            }
+            temp = root->RC;
+			root->data = temp->data;
+			root->RC = Delete(root->RC,temp->data);
+		}
+    }
+    return root;
+}
+
 void InOrder(Node *node)
 {
     if (node == nullptr)
@@ -108,14 +145,21 @@ int main()
 {
     Node* tree = nullptr;
 
-    tree = insert(tree,5);
-    tree = insert(tree,2);
-    tree = insert(tree,6);
+    // Inserting nodes in Binary search Tree
+
+    tree = insert(tree,8);
     tree = insert(tree,3);
+    tree = insert(tree,10);
+    tree = insert(tree,1);
+    tree = insert(tree,6);
 
-    InOrder(tree);
+    // Deleting the node containing 3
 
-    cout <<'\n';
+    tree = Delete(tree,3);
     
+    // searching 3
+
     Search(tree,3);
+    
+    InOrder(tree);
 }
