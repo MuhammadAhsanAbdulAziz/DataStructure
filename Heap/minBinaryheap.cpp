@@ -35,7 +35,6 @@ void buildMinHeapTree(vector<int>& arr)
         minheapify(arr,size,i);
     }
 }
-// sorts the already built Heap Tree
 
 
 void printArray(vector <int> arr)
@@ -49,7 +48,7 @@ void printArray(vector <int> arr)
 
 int main()
 {
-    vector<int>arr = {19, 8, 2, 12, 20, 10, 18, 11, 14, 5};
+    vector<int>arr = { 12, 20, 10, 18, 11, 14, 5};
 
     buildMinHeapTree(arr);
 
