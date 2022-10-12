@@ -37,17 +37,6 @@ void buildMinHeapTree(vector<int>& arr)
 }
 // sorts the already built Heap Tree
 
-void heapSort(vector<int>& arr)
-{
-    buildMinHeapTree(arr);
-
-    int size = arr.size();
-    for (int i = size - 1; i >= 0 ; i--)
-    {
-        swap(arr[0],arr[i]);
-        minheapify(arr,i,0);
-    } 
-}
 
 void printArray(vector <int> arr)
 {
@@ -62,9 +51,8 @@ int main()
 {
     vector<int>arr = {19, 8, 2, 12, 20, 10, 18, 11, 14, 5};
 
-    // buildMinHeapTree(arr);
+    buildMinHeapTree(arr);
 
-    heapSort(arr);
 
     printArray(arr);   
 }

@@ -8,6 +8,8 @@ void maxheapify(vector<int>& arr,int size , int i)
 {
     int root = i;
     int LC = i*2 + 1 ; 
+    int RC = (i*2) + 2;
+
 
     if(LC < size && arr[LC] > arr[root])
     {
@@ -33,18 +35,7 @@ void buildMaxHeapTree(vector<int>& arr)
     }
 }
 
-// sorts the already built Heap Tree
-void heapSort(vector<int>& arr)
-{
-    buildMaxHeapTree(arr);
 
-    int size = arr.size();
-    for (int i = size - 1; i >= 0 ; i--)
-    {
-        swap(arr[0],arr[i]);
-        maxheapify(arr,i,0);
-    } 
-}
 
 void printArray(vector <int> arr)
 {
@@ -58,7 +49,7 @@ int main()
 {
     vector<int>arr = {1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17};
 
-    heapSort(arr);
+    buildMaxHeapTree(arr);
 
     printArray(arr);   
 
