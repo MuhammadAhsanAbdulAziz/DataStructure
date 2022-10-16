@@ -77,7 +77,7 @@ public:
 
 int main()
 {
-    string inFix = "(A+B)*(C+D)";
+    string inFix = "a+b*(c/d)^2-x+y";
 
     InfixToPostfix conv;
     conv.Conversion(inFix);
