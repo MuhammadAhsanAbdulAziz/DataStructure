@@ -48,7 +48,7 @@ void printArray(vector <int> arr)
 
 int main()
 {
-    vector<int>arr = { 12, 20, 10, 18, 11, 14, 5};
+    vector<int>arr = {7,10,6,8,22,29,31,1,-3,5};
 
     buildMinHeapTree(arr);
 
