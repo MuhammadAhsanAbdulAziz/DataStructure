@@ -14,7 +14,7 @@ int main()
     int rows, cols, x, y, val;
     int **arr;
 
-    getline(inputFile, line);
+    getline(inputFile, line); // skipping the first line to initialize the array with second line's dimensions.
     if (getline(inputFile, line))
     {
         istringstream ss(line);
@@ -25,9 +25,9 @@ int main()
             arr[i] = new int[cols];
         }
     }
-    inputFile.clear();
-    inputFile.seekg(0);
-    getline(inputFile, line);
+    inputFile.clear(); // clearing the file to reuse if from beginning
+    inputFile.seekg(0); // pointing the pointer to the start of the file
+    getline(inputFile, line); // getting the first line which consist of the nature of the graph
 
     // if Graph is Weighted and Directed
 
