@@ -3,7 +3,12 @@
 #include <sstream>
 using namespace std;
 
-// The coordinates file should follow a proper syntax
+// The coordinates file should follow a proper syntax like
+
+// first line should contain " W UG or w ug "  for weighted and " UW UG or uw ug "  for unweighted
+// second line conatins the dimensions for the 2d Array
+// from 3rd line starts the coordinates along with weights if necessory
+
 
 
 int main()
