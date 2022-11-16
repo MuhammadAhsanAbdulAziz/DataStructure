@@ -30,6 +30,13 @@ public:
             {
                 arr[i] = new int[cols];
             }
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    arr[i][j] = 0;
+                }
+            }
         }
         inputFile.clear();        // clearing the file to reuse if from beginning
         inputFile.seekg(0);       // pointing the pointer to the start of the file
