@@ -14,6 +14,7 @@ class graph
 {
 public:
     string line;
+    vector<int> checked;
     int rows, cols, x, y, val;
     int **arr;
 
@@ -100,25 +101,66 @@ public:
         }
     }
 
-    void findInOutDegree()
+    int findInDegree()
     {
-        int n = 6;
-        vector<int> iN(n);
+        vector<int> iN(rows);
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j < cols; j++)
             {
                 if (arr[i][j] != 0)
+                {
                     iN[j]++;
+                }
+            }
+            if (!checked.empty())
+            {
+                for (int i = 0; i < checked.size(); i++)
+                {
+                    iN[checked[i]] = -1;
+                }
+            }
+        }
+        int flag = 0;
+        int Vertice;
+        for (int k = 0; k < rows; k++)
+        {
+            if (iN[k] == 0)
+            {
+                Vertice = k;
+                checked.push_back(Vertice);
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 1)
+            return Vertice;
+        else
+            return -1;
+    }
+
+    vector<int> topologicalSorting()
+    {
+        vector<int> sorted;
+        int v;
+
+        for (int count = 0; count < rows; count++)
+        {
+            v = findInDegree();
+            if (v == -1)
+            {
+                cout << "Graph has a cycle";
+                break;
+            }
+            sorted.push_back(v);
+            for (int i = 0; i < rows; i++)
+            {
+                arr[v][i] = 0;
             }
         }
 
-        cout << "Vertex\t\tIn" << endl;
-        for (int k = 0; k < n; k++)
-        {
-            cout << k << "\t\t\t\t\t"<< iN[k] << endl;
-        }
+        return sorted;
     }
 };
 
@@ -126,8 +168,9 @@ int main()
 {
     graph g;
     g.createGraph();
-    g.findInOutDegree();
 
-    // cout << g.arr[5][2] << "\n";
-    // cout << g.arr[5][1];
+    for (int x : g.topologicalSorting())
+    {
+        cout << x << " ";
+    }
 }
