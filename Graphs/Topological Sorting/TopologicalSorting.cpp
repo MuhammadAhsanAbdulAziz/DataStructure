@@ -114,17 +114,17 @@ public:
                     iN[j]++;
                 }
             }
-            if (!checked.empty())
+        }
+        if (!checked.empty())
             {
                 for (int i = 0; i < checked.size(); i++)
                 {
                     iN[checked[i]] = -1;
                 }
             }
-        }
         int flag = 0;
         int Vertice;
-        for (int k = 0; k < rows; k++)
+        for (int k = rows-1; k >=0; k--)
         {
             if (iN[k] == 0)
             {
@@ -140,9 +140,9 @@ public:
             return -1;
     }
 
-    vector<int> topologicalSorting()
+    string topologicalSorting()
     {
-        vector<int> sorted;
+        string sorted;
         int v;
 
         for (int count = 0; count < rows; count++)
@@ -150,10 +150,9 @@ public:
             v = findInDegree();
             if (v == -1)
             {
-                cout << "Graph has a cycle";
-                break;
+                return "Graph has a cycle";
             }
-            sorted.push_back(v);
+            sorted.append(to_string(v) + " ");
             for (int i = 0; i < rows; i++)
             {
                 arr[v][i] = 0;
@@ -169,8 +168,5 @@ int main()
     graph g;
     g.createGraph();
 
-    for (int x : g.topologicalSorting())
-    {
-        cout << x << " ";
-    }
+    cout << g.topologicalSorting();
 }
