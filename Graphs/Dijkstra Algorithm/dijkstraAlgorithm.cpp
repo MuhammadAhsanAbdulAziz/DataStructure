@@ -17,6 +17,7 @@ public:
     vector<int> checked;
     int rows, x, y, val;
     int **arr;
+    int **path;
 
     void createGraph()
     {
@@ -101,65 +102,110 @@ public:
         }
     }
 
-    int findInDegree()
+    int SmallestUnknownVertex(int dist[], bool UnknownKnownVertices[])
     {
-        vector<int> iN(rows);
+        int min_vertex;
+        int min = INT_MAX;
+        for (int i = 0; i < rows; i++)
+        {
+            if (dist[i] <= min && UnknownKnownVertices[i] == false)
+            {
+                min_vertex = i;
+                min = dist[i];
+            }
+        }
+        return min_vertex;
+    }
+
+    void printGraph(int dist[], int src)
+    {
+        cout << "Vertex \t Distance from Source" << endl;
+        for (int i = 0; i < rows; i++)
+        {
+            cout << i << " \t\t\t\t" << dist[i] << endl;
+        }
+
+        cout << endl
+             << endl
+             << "Directions :" << endl
+             << endl;
+
+        for (int i = 0; i < rows; i++)
+        {
+            cout << src;
+            for (int j = 0; j < rows; j++)
+            {
+                if (path[i][j] > -1)
+                {
+                    cout << "-->";
+                    cout << path[i][j] << "-->" << i;
+                }
+            }
+            cout << endl;
+        }
+    }
+
+    void dijkstra(int src)
+    {
+        int *dist;
+        bool *UnknownKnownVertices;
+        int count = 0;
+
+        for (int i = 0; i < rows; i++)
+        {
+            dist = new int[i];
+            UnknownKnownVertices = new bool[i];
+        }
+
+        path = new int *[rows];
 
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < rows; j++)
             {
-                if (arr[i][j] != 0)
-                {
-                    iN[j]++;
-                }
+                path[i] = new int[rows];
             }
         }
-        if (!checked.empty())
-            {
-                for (int i = 0; i < checked.size(); i++)
-                {
-                    iN[checked[i]] = -1;
-                }
-            }
-        int flag = 0;
-        int Vertice;
-        for (int k = rows-1; k >=0; k--)
+        for (int i = 0; i < rows; i++)
         {
-            if (iN[k] == 0)
+            for (int j = 0; j < rows; j++)
             {
-                Vertice = k;
-                checked.push_back(Vertice);
-                flag = 1;
-                break;
+                path[i][j] = -1;
             }
         }
-        if (flag == 1)
-            return Vertice;
-        else
-            return -1;
-    }
 
-    string topologicalSorting()
-    {
-        string sorted;
-        int v;
-
-        for (int count = 0; count < rows; count++)
+        for (int i = 0; i < rows; i++)
         {
-            v = findInDegree();
+            dist[i] = INT_MAX;
+            UnknownKnownVertices[i] = false;
+        }
+
+        dist[src] = 0;
+
+        for (int i = 0; i < rows; i++)
+        {
+            int v = SmallestUnknownVertex(dist, UnknownKnownVertices);
             if (v == -1)
             {
-                return "Graph has a cycle";
+                break;
             }
-            sorted.append(to_string(v) + " ");
-            for (int i = 0; i < rows; i++)
+            else
             {
-                arr[v][i] = 0;
+                UnknownKnownVertices[v] = true;
+                for (int j = 0; j < rows; j++)
+                {
+                    if (arr[v][j] > 0 && UnknownKnownVertices[j] != true && dist[v] + arr[v][j] < dist[j])
+                    {
+
+                        dist[j] = dist[v] + arr[v][j];
+                        path[j][count] = v;
+                        count++;
+                    }
+                }
             }
         }
 
-        return sorted;
+        printGraph(dist, src);
     }
 };
 
@@ -167,6 +213,5 @@ int main()
 {
     graph g;
     g.createGraph();
-
-    cout << g.topologicalSorting();
+    g.dijkstra(1);
 }

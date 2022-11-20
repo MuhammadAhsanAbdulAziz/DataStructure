@@ -13,7 +13,7 @@ class graph
 {
 public:
     string line;
-    int rows, cols, x, y, val;
+    int rows, x, y, val;
     int **arr;
 
     void createGraph()
@@ -24,15 +24,15 @@ public:
         if (getline(inputFile, line))
         {
             istringstream ss(line);
-            ss >> rows >> cols;
+            ss >> rows;
             arr = new int *[rows];
             for (int i = 0; i < rows; i++)
             {
-                arr[i] = new int[cols];
+                arr[i] = new int[rows];
             }
             for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < cols; j++)
+                for (int j = 0; j < rows; j++)
                 {
                     arr[i][j] = 0;
                 }
