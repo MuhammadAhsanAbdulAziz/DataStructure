@@ -151,14 +151,18 @@ public:
         bool *UnknownKnownVertices;
         int count = 0;
 
+        // creating 1d Array for distance and UnUnknownKnownVertices
+        // initializing
         for (int i = 0; i < rows; i++)
         {
             dist = new int[i];
             UnknownKnownVertices = new bool[i];
         }
 
+        // creating 2d Array "path" for Path directions
         path = new int *[rows];
 
+        // Declaraing
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < rows; j++)
@@ -166,6 +170,8 @@ public:
                 path[i] = new int[rows];
             }
         }
+
+        // Initializing 2d Array "path" cells with "-1"
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < rows; j++)
@@ -174,31 +180,33 @@ public:
             }
         }
 
+        // Initializing 2d Array "dist" and "UnknownKnownVertices" cells with "Maximum Integer number" and "false"
         for (int i = 0; i < rows; i++)
         {
             dist[i] = INT_MAX;
             UnknownKnownVertices[i] = false;
         }
 
+        // Initialzing the src in the distance array to "0"
         dist[src] = 0;
 
         for (int i = 0; i < rows; i++)
         {
-            int v = SmallestUnknownVertex(dist, UnknownKnownVertices);
-            if (v == -1)
+            int v = SmallestUnknownVertex(dist, UnknownKnownVertices); // finding the smallest unknown Vertex
+            if (v == -1) // if vertex is invalid
             {
                 break;
             }
             else
             {
-                UnknownKnownVertices[v] = true;
+                UnknownKnownVertices[v] = true; // making the found vertex true so it wont be choose in future
                 for (int j = 0; j < rows; j++)
                 {
                     if (arr[v][j] > 0 && UnknownKnownVertices[j] != true && dist[v] + arr[v][j] < dist[j])
                     {
 
-                        dist[j] = dist[v] + arr[v][j];
-                        path[j][count] = v;
+                        dist[j] = dist[v] + arr[v][j]; // updating the dist array 
+                        path[j][count] = v; // updating the path 2d Array to track down the vertices
                         count++;
                     }
                 }
