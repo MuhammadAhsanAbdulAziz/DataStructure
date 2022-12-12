@@ -138,6 +138,8 @@ public:
                 if (path[i][j] > -1)
                 {
                     cout << "-->";
+                    int u = path[i][i];
+                    if(path[u][u] > - 1) cout << path[u][u] << "-->"; 
                     cout << path[i][j] << "-->" << i;
                 }
             }
@@ -206,7 +208,7 @@ public:
                     {
 
                         dist[j] = dist[v] + arr[v][j]; // updating the dist array 
-                        path[j][count] = v; // updating the path 2d Array to track down the vertices
+                        path[j][j] = v; // updating the path 2d Array to track down the vertices
                         count++;
                     }
                 }
@@ -221,5 +223,5 @@ int main()
 {
     graph g;
     g.createGraph();
-    g.dijkstra(1);
+    g.dijkstra(0);
 }
